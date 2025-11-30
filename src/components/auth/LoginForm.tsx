@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
 import { loginApi } from "../../api/authApi";
 import { useAuth } from "../../context/AuthContext";
 
@@ -29,38 +35,52 @@ export const LoginForm: React.FC<Props> = ({ onSuccess }) => {
   };
 
   return (
-    <form className="card" onSubmit={handleSubmit}>
-      <h2>Sign in</h2>
-      <p className="text-muted">
-        Demo users: <strong>student1 / password</strong>, <strong>instructor1 / password</strong>
-      </p>
+    <Paper
+      elevation={3}
+      sx={{ maxWidth: 420, mx: "auto", mt: 4, p: 3, borderRadius: 2 }}
+    >
+      <Typography variant="h5" gutterBottom>
+        Sign in
+      </Typography>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        Demo users: <strong>student1 / password</strong>,{" "}
+        <strong>instructor1 / password</strong>
+      </Typography>
 
-      {error && <div className="alert alert-error">{error}</div>}
+      {error && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
 
-      <div className="form-group">
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
+      <Box component="form" onSubmit={handleSubmit} noValidate>
+        <TextField
+          label="Username"
+          fullWidth
+          margin="normal"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           autoComplete="username"
         />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
+        <TextField
+          label="Password"
           type="password"
+          fullWidth
+          margin="normal"
           value={password}
-          autoComplete="current-password"
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="current-password"
         />
-      </div>
-
-      <button className="btn btn-primary" type="submit" disabled={loading}>
-        {loading ? "Signing in..." : "Sign in"}
-      </button>
-    </form>
+        <Button
+          type="submit"
+          variant="contained"
+          fullWidth
+          sx={{ mt: 2 }}
+          disabled={loading}
+        >
+          {loading ? "Signing in..." : "Sign in"}
+        </Button>
+      </Box>
+    </Paper>
   );
 };

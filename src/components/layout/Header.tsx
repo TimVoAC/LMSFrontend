@@ -1,27 +1,35 @@
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import { useAuth } from "../../context/AuthContext";
 
 export const Header: React.FC = () => {
   const { isAuthenticated, username, role, logout } = useAuth();
 
   return (
-    <header className="app-header">
-      <div className="app-header__left">
-        <span className="app-logo">MiniLMS</span>
-      </div>
-      <div className="app-header__right">
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+          MiniLMS
+        </Typography>
         {isAuthenticated ? (
-          <>
-            <span className="app-header__user">
-              {username} <span className="app-header__role">({role})</span>
-            </span>
-            <button className="btn btn-outline" onClick={logout}>
+          <Box display="flex" alignItems="center" gap={2}>
+            <Typography variant="body2">
+              {username}{" "}
+              <Typography component="span" variant="body2" color="text.secondary">
+                ({role})
+              </Typography>
+            </Typography>
+            <Button color="inherit" variant="outlined" size="small" onClick={logout}>
               Logout
-            </button>
-          </>
+            </Button>
+          </Box>
         ) : (
-          <span className="app-header__guest">Guest</span>
+          <Typography variant="body2">Guest</Typography>
         )}
-      </div>
-    </header>
+      </Toolbar>
+    </AppBar>
   );
 };

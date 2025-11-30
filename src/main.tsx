@@ -1,14 +1,23 @@
-// main.tsx
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
 import { AuthProvider } from "./context/AuthContext";
-import "./styles.css";
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
+
+const theme = createTheme({
+  palette: {
+    mode: "light",
+    primary: { main: "#2563eb" },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );

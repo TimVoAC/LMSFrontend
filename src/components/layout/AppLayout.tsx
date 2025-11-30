@@ -1,18 +1,31 @@
 import { Outlet } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 import { Header } from "./Header";
 import { NavBar } from "./NavBar";
 
 export const AppLayout: React.FC = () => {
   return (
-    <div className="app-container">
+    <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
       <NavBar />
-      <main className="app-main">
+      <Container sx={{ mt: 3, mb: 3, flex: 1 }}>
         <Outlet />
-      </main>
-      <footer className="app-footer">
-        © {new Date().getFullYear()} MiniLMS. For educational use.
-      </footer>
-    </div>
+      </Container>
+      <Box
+        component="footer"
+        sx={{
+          py: 2,
+          borderTop: 1,
+          borderColor: "divider",
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="caption">
+          © {new Date().getFullYear()} MiniLMS. For educational use.
+        </Typography>
+      </Box>
+    </Box>
   );
 };
